@@ -55,6 +55,7 @@ func main() {
 
 	v1router.Get("/healthz", handlerReadiness)
 	v1router.Get("/err", handlerErr)
+	v1router.Post("/users", apiCfg.handlerCreateUser)
 
 	router.Mount("/v1", v1router)
 
@@ -64,9 +65,9 @@ func main() {
 	}
 	log.Printf("Server is running on port %v", portString)
 
-	error := srv.ListenAndServe()
+	err = srv.ListenAndServe()
 
-	if error != nil {
+	if err != nil {
 		log.Fatal(err)
 	}
 }
