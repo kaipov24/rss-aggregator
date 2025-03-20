@@ -56,7 +56,7 @@ func main() {
 	v1router.Get("/healthz", handlerReadiness)
 	v1router.Get("/err", handlerErr)
 	v1router.Post("/users", apiCfg.handlerCreateUser)
-	v1router.Get("/users", apiCfg.handlerGetUser)
+	v1router.Get("/users", apiCfg.middlewareAuth(apiCfg.handlerGetUser))
 
 	router.Mount("/v1", v1router)
 
@@ -71,6 +71,4 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	//test
 }
